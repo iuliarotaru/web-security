@@ -30,9 +30,6 @@
        <span>Home menu</span>
        <i class="fa fa-bars fa-lg hamburger"></i>
      </button>
-     <div class="admin_right hide_home_links">
-       <button class="talk_with_therapist">Talk with a therapist</button>
-     </div>
      <div class="admin_left hide_home_links">
        <h4 class="menu">Menu</h4>
        <a href="" class="selected"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Home</a>
@@ -57,10 +54,7 @@
         foreach ($posts as $post) {
         ?>
          <div class="post" id="<?= $post->post_id ?>">
-           <h2><?= $post->title ?></h2>
-           <p id="post_text"><?= substr($post->body, 0, 300) ?><span id="points">...</span><span id="moreText"><?= substr($post->body, 300) ?></span>
-             <button onclick="toggleText()" id="textButton">Read more</button>
-           </p>
+           <p id="post_text"><?= $post->body?></p>
            <div class="position_likes">
              <div class="author">
                <img src="/assets/male-avatar.png" alt="male profile" class="author_image">
