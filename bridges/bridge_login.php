@@ -64,7 +64,7 @@ try {
     $_SESSION['uuid'] = $user->uuid;
     $_SESSION['role'] = $user->user_role;
     if ($user->user_role == 1) {
-        header('Location: /customer');
+        header('Location: /user');
         exit();
     } else if ($user->user_role == 2) {
         header('Location: /therapist');
