@@ -15,7 +15,7 @@
   require_once(__DIR__ . '/../db/db.php');
 
   try {
-    $q = $db->prepare('SELECT * FROM users WHERE uuid = :user_uuid'); //doar ce trebuie
+    $q = $db->prepare('SELECT * FROM users WHERE uuid = :user_uuid'); 
     $q->bindValue(':user_uuid', $_SESSION['uuid']);
     $q->execute();
     $user = $q->fetch();
@@ -48,6 +48,14 @@
       $q->execute();
       $posts = $q->fetchAll();
 
+      $q = $db->prepare('SELECT reply_text, time, user_id, post_id FROM replies ORDER BY time ASC');
+      // $q->bindValue(':uuid', $_SESSION['uuid']);
+      $q->execute();
+      $replies = $q->fetchAll();
+
+
+      //fetch all comments from a post
+
       ?>
      <div id="posts">
        <?php
@@ -69,6 +77,25 @@
                <p id="likes"><?= $post->likes ?></p>
              </div>
            </div>
+           <!-- foreach comment in a post, display it -->
+           <div class="replies">
+                    <?php
+                    foreach($replies as $reply) {
+                      if($post->post_id === $reply->post_id ) {
+                        ?>
+                        <div class="reply"><?= $reply->reply_text; ?></div>
+                        <?php
+                        
+                      }
+                    }
+                      ?>
+           </div>
+           <!-- show the new comment beforeend -->
+           <form class="reply_form" enctype="multipart/form-data">
+              <textarea name="reply-content"></textarea>
+              <input type="hidden" value="<?= $post->post_id ?>" name="post-id" id="post-id">
+              <button type="submit" class="submit_reply"> Submit reply </button>
+           </form>
          </div>
        <?php
         }
@@ -83,6 +110,7 @@
   ?>
  <script src="../javascript/general.js"></script>
  <script src="../javascript/like_dislike_post.js"></script>
+ <script src="../javascript/reply.js"></script>
  <?php
   require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_bottom.php');
   ?>

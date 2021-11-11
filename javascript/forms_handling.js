@@ -1,6 +1,6 @@
-setTimeout(function testMe(name, last_name) {
-  console.log(name, last_name);
-}, 5000);
+// setTimeout(function testMe(name, last_name) {
+//   console.log(name, last_name);
+// }, 5000);
 
 // ----------------------------------------------------------
 // Signup form AJAX
