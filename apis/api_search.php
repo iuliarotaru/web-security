@@ -1,4 +1,5 @@
 <?php
+require_once("globals.php");
 //Validate
 if (!isset($_POST['search_for'])) {
     $error_message = 'Could not display results';
@@ -28,7 +29,8 @@ try {
     $users = $q->fetchAll();
 
     header("Content-Type: application/json");
-    echo json_encode($users);
+    //echo json_encode($users);
+    _out(json_encode($users));
     exit();
 } catch (PDOException $ex) {
     http_response_code(400);

@@ -8,6 +8,8 @@ if (!$_SESSION['uuid']) {
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
 require_once(__DIR__ . '/../db/db.php');
+require_once("globals.php");
+
 try {
   $q = $db->prepare('SELECT name, last_name, email, phone, image_path FROM users WHERE uuid = :user_uuid');
   $q->bindValue(':user_uuid', $_SESSION['uuid']);
@@ -26,6 +28,7 @@ try {
       <button onclick="triggerClick()">Update picture</button>
     </div>
     <form id="update_form">
+    <input name="csrf" type="hidden" value="<?= _set_csrf() ?>">
       <div class="form_element">
         <label for="user_name">Name</label>
         <input name="user_name" id="user_name" type="text" value="<?php echo $user->name ?>" onclick="clearError()" maxlength="20" data-validate="str" data-min="2" data-max="20">

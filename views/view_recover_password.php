@@ -24,6 +24,7 @@ if (!isset($token)) {
 //connect to db
 //check if the token is in the db
 require_once(__DIR__ . '/../db/db.php');
+require_once("globals.php");
 
 try {
     $q = $db->prepare('SELECT * FROM password_recovery WHERE token = :token');
@@ -49,6 +50,7 @@ try {
     <div class="recover_password_main">
         <h1 class="recover_password_title"> Recover password</h1>
         <form action="/recover-password" id="recover_password_form" method="POST" onsubmit="return validate()">
+        <input name="csrf" type="hidden" value="<?= _set_csrf() ?>">
             <div class="form_element">
                 <label for="user_new_password">New password</label>
                 <input name="user_new_password" id="user_new_password" type="password" placeholder="New password" data-validate="str" data-min="8" data-max="50">

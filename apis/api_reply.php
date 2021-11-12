@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once("globals.php");
 if (!isset($_SESSION['uuid'])) {
     $error_message = 'Unauthorized';
     http_response_code(400);
@@ -32,7 +33,7 @@ try {
     }
 
     http_response_code(200);
-    echo $reply;
+    _out($reply);
     exit();
 } catch (PDOException $ex) {
     echo $ex->getMessage();

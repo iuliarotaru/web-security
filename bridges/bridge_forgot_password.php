@@ -12,6 +12,8 @@ if (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
 // Connect to db, check if the user exists
 require_once(__DIR__ . '/../db/db.php');
 require_once(__DIR__ . '/../send_emails/send_recovery_email.php');
+require_once("globals.php");
+_is_csrf_valid();
 
 try {
     $q = $db->prepare('SELECT * FROM users WHERE email = :email');

@@ -1,5 +1,8 @@
 <?php
 session_start();
+require_once("globals.php");
+_is_csrf_valid();
+
 if (!isset($_SESSION['uuid'])) {
     header('Location: /login');
     exit();

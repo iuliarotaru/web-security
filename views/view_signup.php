@@ -1,5 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
+require_once("globals.php");
+
 ?>
 
 <div class="signup_main">
@@ -8,6 +10,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
     </div>
 
     <form id="signup_form" enctype="multipart/form-data">
+    <input name="csrf" type="hidden" value="<?= _set_csrf() ?>">
         <div class="form_element">
             <div>Upload an image</div>
             <div class="upload_image">
