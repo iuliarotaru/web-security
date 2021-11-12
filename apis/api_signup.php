@@ -127,9 +127,10 @@ try {
         header('Location: /signup');
         exit();
     }
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . "/verify/$token";
-    send_email($email, $url);
-    http_response_code(200);
+    // $url = 'http://' . $_SERVER['HTTP_HOST'] . "/verify/$token";
+    // send_email($email, $url);
+    // http_response_code(200);
+    header('Location: /');
     exit();
 } catch (PDOException $ex) {
     echo $ex->getMessage();
