@@ -118,7 +118,7 @@ try {
     $q->bindValue(':password', password_hash($_POST['user_password'], PASSWORD_DEFAULT));
     $q->bindValue(':active', 1);
     $q->bindValue(':token', $token);
-    $q->bindValue(':verified', 0);
+    $q->bindValue(':verified', 1);
     $q->bindValue(':image_path', $random_image_name);
     $q->bindValue(':user_role', 1);
     $q->execute();

@@ -23,7 +23,7 @@ if (signup_form) {
         const signup_title = document.querySelector(".signup_title");
         signup_title.insertAdjacentHTML(
           "afterend",
-          '<span class="verification_text"> A verification link has been sent to your email </span> <div class="verification_illustration"> </div>'
+          '<span class="verification_text"> Your account has been created </span>'
         );
       }
     }
