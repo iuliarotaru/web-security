@@ -24,18 +24,18 @@
       exit();
     }
   ?>
-   <div class="admin_main">
+ <div class="admin_main">
      <h1 class="hi_user">Hi there <?php echo "$user->name" ?>! Welcome</h1>
      <button class="home_menu" onclick="toggleHomeMenu()">
-       <span>Home menu</span>
-       <i class="fa fa-bars fa-lg hamburger"></i>
+         <span>Home menu</span>
+         <i class="fa fa-bars fa-lg hamburger"></i>
      </button>
      <div class="admin_left hide_home_links">
-       <h4 class="menu">Menu</h4>
-       <a href="" class="selected"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Home</a>
-       <a href=""><i class="fa fa-file fa-fw" aria-hidden="true"></i>Topics</a>
-       <a href=""><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i>Saved</a>
-       <a href=""><i class="fa fa-check fa-fw" aria-hidden="true"></i>Following</a>
+         <h4 class="menu">Menu</h4>
+         <a href="" class="selected"><i class="fa fa-home fa-fw" aria-hidden="true"></i>Home</a>
+         <a href=""><i class="fa fa-file fa-fw" aria-hidden="true"></i>Topics</a>
+         <a href=""><i class="fa fa-bookmark fa-fw" aria-hidden="true"></i>Saved</a>
+         <a href=""><i class="fa fa-check fa-fw" aria-hidden="true"></i>Following</a>
      </div>
 
      <!-- <a href="/logout">Log out</a>
@@ -58,50 +58,52 @@
 
       ?>
      <div id="posts">
-       <?php
+         <?php
         foreach ($posts as $post) {
         ?>
          <div class="post" id="<?= $post->post_id ?>">
-           <p id="post_text"><?= $post->body?></p>
-           <div class="position_likes">
-             <div class="author">
-               <img src="/assets/male-avatar.png" alt="male profile" class="author_image">
-               Posted by: <b>John Doe</b>
+             <p id="post_text"><?= $post->body?></p>
+             <div class="position_likes">
+                 <div class="author">
+                     <img src="/assets/male-avatar.png" alt="male profile" class="author_image">
+                     Posted by: <b>John Doe</b>
+                 </div>
+                 <div class="likes">
+                     <div>
+                         <?php if (!$post->like_id) { ?>
+                         <button id="like-button" class="icon icon-like" onclick="likePost('<?= $post->post_id ?>')">
+                         </button> <?php } else { ?>
+                         <button id="dislike-button" class="icon icon-liked"
+                             onclick="dislikePost('<?= $post->post_id ?>')"></button> <?php } ?>
+                     </div>
+                     <p id="likes"><?= $post->likes ?></p>
+                 </div>
              </div>
-             <div class="likes">
-               <div>
-                 <?php if (!$post->like_id) { ?>
-                   <button id="like-button" class="icon icon-like" onclick="likePost('<?= $post->post_id ?>')"> </button> <?php } else { ?>
-                   <button id="dislike-button" class="icon icon-liked" onclick="dislikePost('<?= $post->post_id ?>')"></button> <?php } ?>
-               </div>
-               <p id="likes"><?= $post->likes ?></p>
-             </div>
-           </div>
-           <!-- foreach comment in a post, display it -->
-           <div class="replies">
-                    <?php
+             <!-- foreach comment in a post, display it -->
+             <div class="replies">
+                 <?php
                     foreach($replies as $reply) {
                       if($post->post_id === $reply->post_id ) {
                         ?>
-                        <div class="reply"><?= $reply->reply_text; ?></div>
-                        <?php
+                 <div class="reply"><?= $reply->reply_text; ?></div>
+                 <?php
                         
                       }
                     }
                       ?>
-           </div>
-           <!-- show the new comment beforeend -->
-           <form class="reply_form" enctype="multipart/form-data">
-              <textarea name="reply-content"></textarea>
-              <input type="hidden" value="<?= $post->post_id ?>" name="post-id" id="post-id">
-              <button type="submit" class="submit_reply"> Submit reply </button>
-           </form>
+             </div>
+             <!-- show the new comment beforeend -->
+             <form class="reply_form" enctype="multipart/form-data">
+                 <textarea name="reply-content"></textarea>
+                 <input type="hidden" value="<?= $post->post_id ?>" name="post-id" id="post-id">
+                 <button type="submit" class="submit_reply"> Submit reply </button>
+             </form>
          </div>
-       <?php
+         <?php
         }
         ?>
      </div>
-   </div>
+ </div>
  <?php
   } catch (PDOException $ex) {
     echo $ex;
