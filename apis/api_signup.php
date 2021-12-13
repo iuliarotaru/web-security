@@ -95,7 +95,7 @@ if ($_POST['user_confirm_password'] != $_POST['user_password']) {
 // ----------------------------------------------------------
 // Connect to the db and insert values
 require_once(__DIR__ . '/../db/db.php');
-require_once(__DIR__ . '/../send_emails/send_welcome_email.php');
+// require_once(__DIR__ . '/../send_emails/send_welcome_email.php');
 
 try {
     $name = $_POST['user_name'];
@@ -124,11 +124,13 @@ try {
     $q->execute();
 
     if (!$q->rowCount()) {
-        header('Location: /signup');
+        http_response_code(400);
+        echo 'An error appeared while trying to sign up';
         exit();
     }
-    $url = 'http://' . $_SERVER['HTTP_HOST'] . "/verify/$token";
-    send_email($email, $url);
+    // $url = 'http://' . $_SERVER['HTTP_HOST'] . "/verify/$token";
+    // send_email($email, $url);
+    echo 'Working';
     http_response_code(200);
     exit();
 } catch (PDOException $ex) {

@@ -10,6 +10,49 @@
     header('Location: /therapist');
     exit();
   }
+  // This function will populate the comments and comments replies using a loop
+function show_comments($comments, $post_id, $parent_id = -1) {
+  $html = '';
+  if ($parent_id != -1) {
+      // If the comments are replies sort them by the "submit_date" column
+      array_multisort(array_column($comments, 'time'), SORT_ASC, $comments);
+  }
+ 
+  // Iterate the comments using the foreach loop
+  foreach ($comments as $comment) {
+    if($comment->post_id === $post_id){
+      if ($comment->parent_id == $parent_id) {
+          // Add the comment to the $html variable
+          $html .= '
+          <div class="comment">
+              <p class="content">'. $comment->comment_text . '</p>
+              <a class="reply_comment_btn" href="#" data-comment-id="' . $comment->comment_id . '">Reply</a>
+              '.  show_write_comment_form($comment->post_id, $comment->comment_id) .'
+              <div class="replies">
+              '. show_comments($comments, $post_id, $comment->comment_id). '
+              </div>
+          </div>
+          ';
+      }
+    }
+  }
+  return $html;
+}
+
+// This function is the template for the write comment form
+function show_write_comment_form($post_id, $parent_id = -1) {
+  $html = '
+  <div class="write_comment" data-comment-id="' . $parent_id . '">
+      <form>
+          <input name="parent-id" type="hidden" value="' . $parent_id . '">
+          <input name="post-id" type="hidden" value="' . $post_id . '">
+          <textarea name="comment-text" placeholder="Write your comment here..." required></textarea>
+          <button type="submit">Submit Comment</button>
+      </form>
+  </div>
+  ';
+  return $html;
+}
 
   require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
   require_once(__DIR__ . '/../db/db.php');
@@ -48,10 +91,10 @@
       $q->execute();
       $posts = $q->fetchAll();
 
-      $q = $db->prepare('SELECT reply_text, time, user_id, post_id FROM replies ORDER BY time ASC');
+      $q = $db->prepare('SELECT * FROM comments ORDER BY time ASC');
       // $q->bindValue(':uuid', $_SESSION['uuid']);
       $q->execute();
-      $replies = $q->fetchAll();
+      $comments = $q->fetchAll();
 
 
       //fetch all comments from a post
@@ -61,7 +104,7 @@
          <?php
         foreach ($posts as $post) {
         ?>
-         <div class="post" id="<?= $post->post_id ?>">
+        <div class="post" id="<?= $post->post_id ?>">
              <p id="post_text"><?= $post->body?></p>
              <div class="position_likes">
                  <div class="author">
@@ -79,30 +122,19 @@
                      <p id="likes"><?= $post->likes ?></p>
                  </div>
              </div>
+
              <!-- foreach comment in a post, display it -->
-             <div class="replies">
-                 <?php
-                    foreach($replies as $reply) {
-                      if($post->post_id === $reply->post_id ) {
-                        ?>
-                 <div class="reply"><?= $reply->reply_text; ?></div>
-                 <?php
-                        
-                      }
-                    }
-                      ?>
+
+             <?=show_write_comment_form($post->post_id);?>
+             <?=show_comments($comments, $post->post_id)?> 
+             <div class="comments">
+             
              </div>
-             <!-- show the new comment beforeend -->
-             <form class="reply_form" enctype="multipart/form-data">
-                 <textarea name="reply-content"></textarea>
-                 <input type="hidden" value="<?= $post->post_id ?>" name="post-id" id="post-id">
-                 <button type="submit" class="submit_reply"> Submit reply </button>
-             </form>
-         </div>
+             </div>
          <?php
         }
         ?>
-     </div>
+     
  </div>
  <?php
   } catch (PDOException $ex) {
@@ -112,7 +144,7 @@
   ?>
  <script src="../javascript/general.js"></script>
  <script src="../javascript/like_dislike_post.js"></script>
- <script src="../javascript/reply.js"></script>
+ <script src="../javascript/comment.js"></script>
  <?php
   require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_bottom.php');
   ?>

@@ -11,7 +11,7 @@ try {
     }
 ?>
     <div class="header">
-        <a href="/customer">
+        <a href="/user">
             <img src="/assets/logo.svg" alt="Logo" id="logo"></a>
 
         <nav id="logged_nav">

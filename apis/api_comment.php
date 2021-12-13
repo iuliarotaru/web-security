@@ -13,17 +13,25 @@ if (!isset($_POST['post-id'])) {
     echo 'Invalid id';
     exit();
 }
+if (!isset($_POST['comment-text'])) {
+    http_response_code(400);
+    echo 'Invalid comment';
+    exit();
+}
 // ----------------------------------------------------------
 // Connect to the db and insert values
 require_once(__DIR__ . '/../db/db.php');
 try {
-    $reply = $_POST['reply-content'];
+    $comment = $_POST['comment-text'];
+    $post_id = (int)$_POST['post-id'];
+    $parent_id = (int)$_POST['parent-id'];
 
-    $q = $db->prepare('INSERT INTO replies VALUES(DEFAULT, :reply_text, :time, :user_id, :post_id)');
-    $q->bindValue(':reply_text', $reply);
+    $q = $db->prepare('INSERT INTO comments VALUES(DEFAULT, :comment_text, :time, :user_id, :post_id, :parent_id)');
+    $q->bindValue(':comment_text', $comment);
     $q->bindValue(':time', date('Y-m-d H:i:s'));
     $q->bindValue(':user_id', $_SESSION['uuid']);
-    $q->bindValue(':post_id', $_POST['post-id']);
+    $q->bindValue(':post_id', $post_id);
+    $q->bindValue(':parent_id', $parent_id);
     $q->execute();
 
     if (!$q->rowCount()) {
@@ -33,7 +41,7 @@ try {
     }
 
     http_response_code(200);
-    _out($reply);
+    _out($comment);
     exit();
 } catch (PDOException $ex) {
     echo $ex->getMessage();
