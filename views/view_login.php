@@ -4,10 +4,12 @@ session_start();
 if (isset($_SESSION['uuid'])) {
     header('Location: /customer');
     exit();
+
 }
 ?>
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
+require_once("globals.php");
 ?>
 <!-- Display messages if exist -->
 <?php
@@ -32,6 +34,7 @@ if ($_GET['notification']) {
         <h1>LOGIN</h1>
     </div>
     <form action="/login" id="login_form" method="POST" onsubmit="return validate()">
+    <input name="csrf" type="hidden" value="<?= _set_csrf() ?>">
         <div class="form_element">
             <label for="user_email">Email</label>
             <input name="user_email" id="user_email" type="text" placeholder="email" data-validate="email" onclick="clearError()">
