@@ -81,10 +81,6 @@ function show_write_comment_form($post_id, $parent_id = -1) {
          <a href=""><i class="fa fa-check fa-fw" aria-hidden="true"></i>Following</a>
      </div>
 
-     <!-- <a href="/logout">Log out</a>
-   <a href="/delete">Delete account</a>
-   <a href="/update">Profile information</a> -->
-
      <?php
       $q = $db->prepare('SELECT posts.post_id, title, body, likes.like_id, count(number_likes.like_id) as likes FROM posts LEFT JOIN likes ON likes.post_id = posts.post_id AND likes.user_id = :uuid LEFT JOIN likes as number_likes ON number_likes.post_id = posts.post_id GROUP BY posts.post_id');
       $q->bindValue(':uuid', $_SESSION['uuid']);
@@ -125,10 +121,10 @@ function show_write_comment_form($post_id, $parent_id = -1) {
 
              <!-- foreach comment in a post, display it -->
 
-             <?=show_write_comment_form($post->post_id);?>
-             <?=show_comments($comments, $post->post_id)?> 
+              
              <div class="comments">
-             
+             <?=show_write_comment_form($post->post_id);?>
+             <?=show_comments($comments, $post->post_id)?>
              </div>
              </div>
          <?php

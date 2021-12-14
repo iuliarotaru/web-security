@@ -583,6 +583,14 @@ nav {
       justify-content: space-between;
       margin-top: 20px;
     }
+    .comment  {
+      .write_comment {
+        display: none;
+      }
+      .replies {
+        margin-left: 20px;
+      }
+    }
   }
   /* like icon */
   #like-button,

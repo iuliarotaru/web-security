@@ -571,6 +571,12 @@ nav .hamburger_icon {
   justify-content: space-between;
   margin-top: 20px;
 }
+.admin_main .post .comment .write_comment {
+  display: none;
+}
+.admin_main .post .comment .replies {
+  margin-left: 20px;
+}
 .admin_main #like-button,
 .admin_main #dislike-button {
   background-color: white;

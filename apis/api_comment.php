@@ -40,8 +40,9 @@ try {
     exit();
     }
 
+    
     http_response_code(200);
-    _out($comment);
+    _out($db->lastInsertId());
     exit();
 } catch (PDOException $ex) {
     echo $ex->getMessage();
