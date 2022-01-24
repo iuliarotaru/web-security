@@ -1,4 +1,5 @@
 <?php
+session_start();
 // ----------------------------------------------------------
 // Backend Update validation
 // Validation image
@@ -24,8 +25,7 @@ if ($image_size > 2000000) {
     echo $error_message;
     exit();
 }
-require_once("globals.php");
-_is_csrf_valid();
+
 // ----------------------------------------------------------
 // Connect to the db and update image
 require_once(__DIR__ . '/../db/db.php');

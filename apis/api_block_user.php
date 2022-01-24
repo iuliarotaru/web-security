@@ -1,6 +1,6 @@
 <?php
-//Check if the admin is logged in
 session_start();
+//Check if the admin is logged in
 if (!isset($_SESSION['uuid'])) {
     $error_message = 'Unauthorized';
     http_response_code(400);
@@ -13,8 +13,6 @@ if ($_SESSION['role'] != 2) {
     echo $error_message;
     exit();
 }
-require_once("globals.php");
-_is_csrf_valid();
 require_once(__DIR__ . '/../db/db.php');
 // ----------------------------------------------------------
 // Connect to the db and delete user

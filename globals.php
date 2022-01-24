@@ -19,6 +19,7 @@ function _is_csrf_valid(){
   }
 }
 
+
 function _out($data){
     echo htmlspecialchars($data);
 }

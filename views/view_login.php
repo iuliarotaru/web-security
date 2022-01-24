@@ -43,9 +43,6 @@ if ($_GET['notification']) {
             <label for="user_password">Password</label>
             <input name="user_password" id="user_password" type="password" placeholder="password" data-validate="str" data-min="8" data-max="50" onclick="clearError()">
         </div>
-        <div class="forgot_password">
-            <a href="/forgot-password">Forgot password?</a>
-        </div>
         <button type="submit" id="login_button">Login</button>
     </form>
 </div>
