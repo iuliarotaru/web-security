@@ -23,7 +23,7 @@
        if (!connection.ok) {
          console.log(connection);
          let response = await connection.text();
-         console.log(response);
+         element.insertAdjacentHTML("beforeend", response);
          return;
        } else {
         let response = await connection.text();
@@ -33,6 +33,7 @@
                   <a class="reply_comment_btn" href="#" data-comment-id="${response}">Reply</a>
                     <div class="write_comment" data-comment-id="${response}">
                         <form class="comment_form">
+                            <input name="csrf" type="hidden" value="${element.elements['csrf'].value}">
                             <input name="parent-id" type="hidden" value="${response}">
                             <input name="post-id" type="hidden" value="${element.elements['post-id'].value}">
                             <textarea name="comment-text" placeholder="Write your comment here..." required></textarea>
