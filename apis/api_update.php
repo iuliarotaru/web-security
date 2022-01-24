@@ -1,4 +1,10 @@
 <?php
+session_start();
+if( $_POST["csrf"] != $_SESSION["csrf"] ){
+    http_response_code(400);
+    echo "mmm... you are doing a CSRF";
+    exit();
+}
 // ----------------------------------------------------------
 // Backend Update validation
 
@@ -45,8 +51,7 @@ if (!preg_match('/^[a-z0-9]+[\._]?[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$/', $
     echo $error_message;
     exit();
 }
-require_once("globals.php");
-_is_csrf_valid();
+
 // ----------------------------------------------------------
 // Connect to the db and update values
 require_once(__DIR__ . '/../db/db.php');

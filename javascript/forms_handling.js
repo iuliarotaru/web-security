@@ -87,7 +87,6 @@ const update_form = document.getElementById("update_form");
 console.log(update_form);
 if (update_form) {
   update_form.addEventListener("submit", async function (event) {
-    console.log("iulia");
     event.preventDefault();
     const update_message = document.getElementById("update_message");
     if (update_message) {

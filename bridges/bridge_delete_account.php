@@ -1,11 +1,12 @@
 <?php
 session_start();
+require_once("globals.php");
+_is_csrf_valid();
+
 if (!isset($_SESSION['uuid'])) {
     header('Location: /login');
     exit();
 }
-require_once("globals.php");
-_is_csrf_valid();
 
 require_once(__DIR__ . '/../db/db.php');
 try {

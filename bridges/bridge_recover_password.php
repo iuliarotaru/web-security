@@ -1,4 +1,7 @@
 <?php
+session_start();
+require_once("globals.php");
+_is_csrf_valid();
 // ----------------------------------------------------------
 // Backend Recover password validation
 
@@ -23,8 +26,7 @@ if ($_POST['user_confirm_password'] != $_POST['user_new_password']) {
 // ----------------------------------------------------------
 // Connect to the db and update password
 require_once(__DIR__ . '/../db/db.php');
-require_once("globals.php");
-_is_csrf_valid();
+
 
 try {
     $token = $_POST['token'];

@@ -47,7 +47,7 @@ function show_write_comment_form($post_id, $parent_id = -1) {
   $html = '
   <div class="write_comment" data-comment-id="' . $parent_id . '">
       <form class="comment_form">
-          <input name="csrf" type="hidden" value=" ' . _set_csrf() . '">
+          <input name="csrf" type="hidden" value="'._set_csrf().'">
           <input name="parent-id" type="hidden" value="' . $parent_id . '">
           <input name="post-id" type="hidden" value="' . $post_id . '">
           <textarea name="comment-text" placeholder="Write your comment here..." required></textarea>

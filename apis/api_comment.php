@@ -1,7 +1,12 @@
 <?php
-session_start();
 require_once("globals.php");
-// _is_csrf_valid();
+session_start();
+
+if( $_POST["csrf"] != $_SESSION["csrf"] ){
+    http_response_code(400);
+    echo "mmm... you are doing a CSRF";
+    exit();
+}
 
 if (!isset($_SESSION['uuid'])) {
     $error_message = 'Unauthorized';
@@ -15,11 +20,13 @@ if (!isset($_POST['post-id'])) {
     echo 'Invalid id';
     exit();
 }
+
 if (!isset($_POST['comment-text'])) {
     http_response_code(400);
     echo 'Invalid comment';
     exit();
 }
+
 // ----------------------------------------------------------
 // Connect to the db and insert values
 require_once(__DIR__ . '/../db/db.php');
@@ -41,7 +48,7 @@ try {
     echo 'Error replying to this post';
     exit();
     }
-    
+
     http_response_code(200);
     _out($db->lastInsertId());
     exit();
