@@ -3,7 +3,12 @@
   document.body.addEventListener( 'click', function ( event ) {
     if( event.target.classList.contains ('reply_comment_btn') ) {
       event.preventDefault();
-			document.querySelectorAll(".comments .write_comment").forEach(element => element.style.display = 'none');
+			document.querySelectorAll(".comments .write_comment").forEach((element) => {
+        if (element.getAttribute('data-comment-id') != -1) {
+          element.style.display = 'none';
+        }
+        });
+      console.log('iulia');
 			document.querySelector("div[data-comment-id='" + event.target.getAttribute("data-comment-id") + "']").style.display = 'block';
 			document.querySelector("div[data-comment-id='" + event.target.getAttribute("data-comment-id") + "'] input[name='name']").focus();
     };
@@ -16,7 +21,7 @@
           method: 'POST',
           body: new FormData(element)
         }).then(response => response.text()).then(data => {
-          element.parentElement.nextElementSibling.innerHTML = `
+          element.parentElement.nextElementSibling.insertAdjacentHTML('beforeend', `
           <div class="comment">
                 <p class="content"> ${element.elements['comment-text'].value}</p>
                 <a class="reply_comment_btn" href="#" data-comment-id="${data}">Reply</a>
@@ -31,8 +36,9 @@
                 <div class="replies">
                 </div>
           </div>
-          `
-          element.style.display = "none";
+          ` )
+          element.parentElement.style.display = "none";
+          element.reset();
         });
     }
   } );

@@ -1,4 +1,6 @@
- <?php
+<?php
+require_once("globals.php");
+
   //Check if the user is logged in
   session_start();
   if (!isset($_SESSION['uuid'])) {
