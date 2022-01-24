@@ -27,25 +27,46 @@
          return;
        } else {
         let response = await connection.text();
-        element.parentElement.nextElementSibling.insertAdjacentHTML('beforeend', `
-            <div class="comment">
-                  <p class="content"> ${element.elements['comment-text'].value}</p>
-                  <a class="reply_comment_btn" href="#" data-comment-id="${response}">Reply</a>
-                    <div class="write_comment" data-comment-id="${response}">
-                        <form class="comment_form">
-                            <input name="csrf" type="hidden" value="${element.elements['csrf'].value}">
-                            <input name="parent-id" type="hidden" value="${response}">
-                            <input name="post-id" type="hidden" value="${element.elements['post-id'].value}">
-                            <textarea name="comment-text" placeholder="Write your comment here..." required></textarea>
-                            <button type="submit">Submit Comment</button>
-                        </form>
-                    </div>
-                  <div class="replies">
+        if(element.parentElement.getAttribute('data-comment-id') === -1) {
+          element.parentElement.insertAdjacentHTML('beforeend', `
+          <div class="comment">
+                <p class="content"> ${element.elements['comment-text'].value}</p>
+                <a class="reply_comment_btn" href="#" data-comment-id="${response}">Reply</a>
+                  <div class="write_comment" data-comment-id="${response}">
+                      <form class="comment_form">
+                          <input name="csrf" type="hidden" value="${element.elements['csrf'].value}">
+                          <input name="parent-id" type="hidden" value="${response}">
+                          <input name="post-id" type="hidden" value="${element.elements['post-id'].value}">
+                          <textarea name="comment-text" placeholder="Write your comment here..." required></textarea>
+                          <button type="submit">Submit Comment</button>
+                      </form>
                   </div>
-            </div>
-            ` )
-            element.parentElement.style.display = "none";
-            element.reset();
+                <div class="replies">
+                </div>
+          </div>
+          ` )
+        }
+        else {
+          element.parentElement.nextElementSibling.insertAdjacentHTML('beforeend', `
+          <div class="comment">
+                <p class="content"> ${element.elements['comment-text'].value}</p>
+                <a class="reply_comment_btn" href="#" data-comment-id="${response}">Reply</a>
+                  <div class="write_comment" data-comment-id="${response}">
+                      <form class="comment_form">
+                          <input name="csrf" type="hidden" value="${element.elements['csrf'].value}">
+                          <input name="parent-id" type="hidden" value="${response}">
+                          <input name="post-id" type="hidden" value="${element.elements['post-id'].value}">
+                          <textarea name="comment-text" placeholder="Write your comment here..." required></textarea>
+                          <button type="submit">Submit Comment</button>
+                      </form>
+                  </div>
+                <div class="replies">
+                </div>
+          </div>
+          ` )
+          element.parentElement.style.display = "none";
+        }
+        element.reset();
        }
     }
   } );
