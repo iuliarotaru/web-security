@@ -27,7 +27,7 @@ function show_comments($comments, $post_id, $parent_id = -1) {
           // Add the comment to the $html variable
           $html .= '
           <div class="comment">
-              <p class="content">'. $comment->comment_text . '</p>
+              <p class="content">'. htmlspecialchars($comment->comment_text) . '</p>
               <a class="reply_comment_btn" href="#" data-comment-id="' . $comment->comment_id . '">Reply</a>
               '.  show_write_comment_form($comment->post_id, $comment->comment_id) .'
               <div class="replies">
@@ -41,11 +41,13 @@ function show_comments($comments, $post_id, $parent_id = -1) {
   return $html;
 }
 
+
 // This function is the template for the write comment form
 function show_write_comment_form($post_id, $parent_id = -1) {
   $html = '
   <div class="write_comment" data-comment-id="' . $parent_id . '">
       <form class="comment_form">
+          <input name="csrf" type="hidden" value=" ' . _set_csrf() . '">
           <input name="parent-id" type="hidden" value="' . $parent_id . '">
           <input name="post-id" type="hidden" value="' . $post_id . '">
           <textarea name="comment-text" placeholder="Write your comment here..." required></textarea>
@@ -70,7 +72,7 @@ function show_write_comment_form($post_id, $parent_id = -1) {
     }
   ?>
  <div class="admin_main">
-     <h1 class="hi_user">Hi there <?php echo "$user->name" ?>! Welcome</h1>
+     <h1 class="hi_user">Hi there <?php _out($user->name) ?>! Welcome</h1>
      <button class="home_menu" onclick="toggleHomeMenu()">
          <span>Home menu</span>
          <i class="fa fa-bars fa-lg hamburger"></i>

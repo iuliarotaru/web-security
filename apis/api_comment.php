@@ -18,6 +18,8 @@ if (!isset($_POST['comment-text'])) {
     echo 'Invalid comment';
     exit();
 }
+require_once("globals.php");
+_is_csrf_valid();
 // ----------------------------------------------------------
 // Connect to the db and insert values
 require_once(__DIR__ . '/../db/db.php');
@@ -39,7 +41,6 @@ try {
     echo 'Error replying to this post';
     exit();
     }
-
     
     http_response_code(200);
     _out($db->lastInsertId());

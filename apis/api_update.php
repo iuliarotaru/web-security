@@ -1,6 +1,7 @@
 <?php
 // ----------------------------------------------------------
 // Backend Update validation
+
 // Validate name - min 2 max 20
 if (strlen($_POST['user_name']) < 2) {
     $error_message = 'Name must be at least 2 characters';
@@ -44,6 +45,8 @@ if (!preg_match('/^[a-z0-9]+[\._]?[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$/', $
     echo $error_message;
     exit();
 }
+require_once("globals.php");
+_is_csrf_valid();
 // ----------------------------------------------------------
 // Connect to the db and update values
 require_once(__DIR__ . '/../db/db.php');

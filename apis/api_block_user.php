@@ -1,5 +1,5 @@
 <?php
-//Check if the therapist is logged in
+//Check if the admin is logged in
 session_start();
 if (!isset($_SESSION['uuid'])) {
     $error_message = 'Unauthorized';
@@ -13,6 +13,8 @@ if ($_SESSION['role'] != 2) {
     echo $error_message;
     exit();
 }
+require_once("globals.php");
+_is_csrf_valid();
 require_once(__DIR__ . '/../db/db.php');
 // ----------------------------------------------------------
 // Connect to the db and delete user

@@ -19,6 +19,8 @@ if (strlen($_POST['search_for']) > 20) {
     echo $error_message;
     exit();
 }
+require_once("globals.php");
+_is_csrf_valid();
 
 // require_once($_SERVER['DOCUMENT_ROOT'] . '/views/view_top.php');
 require_once(__DIR__ . '/../db/db.php');

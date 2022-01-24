@@ -21,6 +21,8 @@ if ($like_or_dislike != 0 && $like_or_dislike != 1) {
     echo 'Invalid like or dislike';
     exit();
 }
+require_once("globals.php");
+_is_csrf_valid();
 require_once(__DIR__ . '/../db/db.php');
 // ----------------------------------------------------------
 // Connect to the db insert or delete a row
