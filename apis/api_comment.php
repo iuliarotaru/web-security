@@ -1,6 +1,8 @@
 <?php
 session_start();
 require_once("globals.php");
+// _is_csrf_valid();
+
 if (!isset($_SESSION['uuid'])) {
     $error_message = 'Unauthorized';
     http_response_code(400);
@@ -18,8 +20,6 @@ if (!isset($_POST['comment-text'])) {
     echo 'Invalid comment';
     exit();
 }
-require_once("globals.php");
-_is_csrf_valid();
 // ----------------------------------------------------------
 // Connect to the db and insert values
 require_once(__DIR__ . '/../db/db.php');
