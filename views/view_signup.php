@@ -41,7 +41,7 @@ require_once("globals.php");
                 data-validate="int" data-min="10000000 " data-max="99999999">
         </div>
         <div class="form_element">
-            <label for="password1">Password <span class="soft">Minimum 8 maximum 50</span></label>
+            <label for="password1">Password <span class="soft">Minimum 8 characters, must contain upper case, number, special character</span></label>
             <input id="password1" name="user_password" type="password" placeholder="password" onclick="clearError()"
                 data-validate="str" data-min="8" data-max="50">
         </div>

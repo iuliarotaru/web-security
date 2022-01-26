@@ -7,22 +7,21 @@ _is_csrf_valid();
 
 //Validate email
 if (!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL)) {
-    $error_message = 'Invalid email';
+    $error_message = 'Invalid email or password';
     header("Location: /login?error=$error_message");
     exit();
 }
-//Validate password - at least 8 characters and max 50 characters
-if (strlen($_POST['user_password']) < 8) {
-    $error_message = 'Password must be at least 2 characters';
-    header("Location: /login?error=$error_message");
-    exit();
-}
-if (strlen($_POST['user_password']) > 50) {
-    $error_message = 'Password must be at maximum 5 characters';
-    header("Location: /login?error=$error_message");
-    exit();
-}
+//Validate password - at least 8 characters, one uppercase, one number, one special character
+$uppercase = preg_match('@[A-Z]@', $_POST['user_password']);
+$lowercase = preg_match('@[a-z]@', $_POST['user_password']);
+$number    = preg_match('@[0-9]@', $_POST['user_password']);
+$specialChars = preg_match('@[^\w]@', $_POST['user_password']);
 
+if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($_POST['user_password']) < 8) {
+    $error_message = 'Invalid email or password';
+    header("Location: /login?error=$error_message");
+    exit();
+}
 
 // ----------------------------------------------------------
 // Connect to db, check if the user exists, start session

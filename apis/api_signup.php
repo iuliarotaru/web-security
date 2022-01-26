@@ -71,14 +71,13 @@ if (!preg_match('/^[a-z0-9]+[\._]?[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$/', $
 }
 
 // Validate password - min 8 max 50
-if (strlen($_POST['user_password']) < 8) {
-    $error_message = 'Password must be at least 8 characters';
-    http_response_code(400);
-    echo $error_message;
-    exit();
-}
-if (strlen($_POST['user_password']) > 50) {
-    $error_message = 'Password must be maximum 50 characters';
+$uppercase = preg_match('@[A-Z]@', $_POST['user_password']);
+$lowercase = preg_match('@[a-z]@', $_POST['user_password']);
+$number    = preg_match('@[0-9]@', $_POST['user_password']);
+$specialChars = preg_match('@[^\w]@', $_POST['user_password']);
+
+if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($_POST['user_password']) < 8) {
+    $error_message = 'Password must be at least 8 characters and must contain one uppercase, one number and one special character';
     http_response_code(400);
     echo $error_message;
     exit();
