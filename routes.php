@@ -22,6 +22,7 @@ get('/verify/$token', 'bridges/bridge_verify.php');
 
 post('/create-users', 'db/create_users.php');
 post('/create-user-role', 'db/create_user_role.php');
+post('/create-login-information', 'db/login.php');
 post('/login', 'bridges/bridge_login.php');
 post('/posts/$post_id/$like_or_dislike', 'apis/api_like_or_dislike.php');
 // post('/posts/$post_id', 'apis/api_comment.php');
