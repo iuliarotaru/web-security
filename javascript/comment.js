@@ -27,7 +27,7 @@
          return;
        } else {
         let response = await connection.text();
-        if(element.parentElement.getAttribute('data-comment-id') === -1) {
+        if(element.parentElement.getAttribute('data-comment-id') == -1) {
           element.parentElement.insertAdjacentHTML('beforeend', `
           <div class="comment">
                 <p class="content"> ${element.elements['comment-text'].value}</p>

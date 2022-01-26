@@ -590,6 +590,24 @@ nav {
       .replies {
         margin-left: 20px;
       }
+      .reply_comment_btn {
+        text-decoration: none;
+        color: darkslateblue;
+      }
+    }
+    .comment_form {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      textarea {
+        padding-top: 5px;
+      }
+      button {
+        width: 110px;
+        height: 30px;
+        color: grey;
+        margin-left: 10px;
+      }
     }
   }
   /* like icon */
